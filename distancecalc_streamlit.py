@@ -1,14 +1,11 @@
-
 import streamlit as st
 import openrouteservice
 from geopy.geocoders import Nominatim
 import re
 import time
 
-# --- Streamlit secrets for API key ---
-# In Streamlit Cloud, add your key in Secrets: API_KEY="YOUR_KEY_HERE"
-API_KEY = st.secrets["API_KEY"] if "API_KEY" in st.secrets else "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImRlYTYzNjZhZDgzNzRhMmI4YmFiZTdkZDdjNmY0OGI2IiwiaCI6Im11cm11cjY0In0="
-
+# --- Streamlit secret for OpenRouteService API key ---
+API_KEY = st.secrets["eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImRlYTYzNjZhZDgzNzRhMmI4YmFiZTdkZDdjNmY0OGI2IiwiaCI6Im11cm11cjY0In0="]
 client = openrouteservice.Client(key=API_KEY)
 geolocator = Nominatim(user_agent="distancecalc_streamlit")
 
@@ -28,10 +25,10 @@ def smart_geocode(street, city, state, country, postal):
             return (location.longitude, location.latitude)
     return None
 
-# --- Streamlit App ---
+# --- Streamlit UI ---
 st.title("🚗 Driving Distance Calculator")
 
-# Home Address
+# Home address
 st.header("Home Address")
 home_street = st.text_input("Street")
 home_city = st.text_input("City")
@@ -41,8 +38,8 @@ home_postal = st.text_input("Postal Code (optional)")
 
 # Destinations
 st.header("Destinations")
-st.write("Enter each destination on a new line in the format:")
-st.write("Street, City, Province/State, Country, Postal (optional)")
+st.write("Enter each destination on a new line:")
+st.write("Format: Street, City, Province/State, Country, Postal (optional)")
 destinations_input = st.text_area("Destinations (one per line)")
 
 # Calculate distances
@@ -78,7 +75,7 @@ if st.button("Calculate Distances"):
                     distance_km = distance_m / 1000
                     total_distance += distance_km
                     st.write(f"Destination {i}: {distance_km:.2f} km")
-                    time.sleep(1)  # prevent API throttling
+                    time.sleep(1)  # avoid API throttling
                 except Exception as e:
                     st.write(f"Destination {i}: ⚠️ Could not calculate route ({e})")
             st.write(f"### 🟢 Total distance: {total_distance:.2f} km")
