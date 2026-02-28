@@ -1,18 +1,13 @@
-# Ignore Visual Studio files
+# Build artifacts
+build/
+dist/
+*.spec
+
+# Visual Studio
 .vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+*.sln
+*.pyproj
 
-# Python cache and temp files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+# Secrets
+KEY.txt
 .env
-.venv/
-
-# Other temp files
-*.log
-*.tmp
