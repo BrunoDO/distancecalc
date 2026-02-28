@@ -5,7 +5,8 @@ import re
 import time
 
 # --- Streamlit secret for OpenRouteService API key ---
-API_KEY = st.secrets["eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImRlYTYzNjZhZDgzNzRhMmI4YmFiZTdkZDdjNmY0OGI2IiwiaCI6Im11cm11cjY0In0="]
+API_KEY = st.secrets["OPENROUTESERVICE_API_KEY"]
+
 client = openrouteservice.Client(key=API_KEY)
 geolocator = Nominatim(user_agent="distancecalc_streamlit")
 
